@@ -10,7 +10,7 @@
     "web": "expo start --web",
     "lint": "expo lint",
     "deploy": "gh-pages -t -d dist",
-    "predeploy": "expo -p web"
+    "predeploy": "expo export -p web"
   },
   "dependencies": {
     "@expo/metro-runtime": "~6.1.2",
