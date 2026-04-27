@@ -44,6 +44,13 @@
       "typedRoutes": true,
       "reactCompiler": true,
       "baseUrl": "/web-cloud-ynov"
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "317e02d9-ea04-4c36-9a0b-a0d6a7fa770f"
+      }
+    },
+    "owner": "lucrece"
   }
 }
