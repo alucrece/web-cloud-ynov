@@ -33,6 +33,8 @@ jobs:
         run: eas build --platform android --non-interactive --no-wait
       - name: Create update
         run: eas update --auto --platform android --non-interactive
+      - name: List dist contents
+        run: ls -la dist/
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
