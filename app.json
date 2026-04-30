@@ -23,7 +23,7 @@
       "package": "com.lucrece.webcloudynov"
     },
     "web": {
-      "output": "static",
+      "output": "single",
       "favicon": "./assets/images/favicon.png",
       "baseUrl": "/web-cloud-ynov"
     },

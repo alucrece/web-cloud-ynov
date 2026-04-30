@@ -51,12 +51,13 @@ jobs:
         run: ls -la dist/
       - name: Debug dist structure
         run: find dist -type f
-      - name: Fix index.html for GitHub Pages
+      - name: Fix paths for GitHub Pages
         run: |
-          find dist -type f
-          # Copier le bon index.html à la racine
-          find dist -name "index.html" -exec cp {} dist/index.html \; 2>/dev/null || true
+          sed -i 's|src="/_expo|src="/web-cloud-ynov/_expo|g' dist/index.html
+          sed -i 's|href="/favicon|href="/web-cloud-ynov/favicon|g' dist/index.html
           cp dist/index.html dist/404.html
+          echo "✅ Done"
+          grep -E 'src=|href=' dist/index.html | head -5
       - name: Copy root index for GitHub Pages
         run: |
           cp dist/index/index.html dist/index.html
