@@ -10,7 +10,7 @@ export default function Profil() {
   const handleLogout = () => {
     signOut(auth)
       .then(() => {
-        router.replace('/signin');
+        router.replace('/');
       })
       .catch((error) => console.log(error.message));
   };
