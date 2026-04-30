@@ -31,6 +31,18 @@ jobs:
           token: ${{ secrets.EXPO_TOKEN }}
       - name: Build app
         run: eas build --platform android --non-interactive --no-wait
+      - name: Fix missing index.html
+        run: |
+          ls -la dist/
+          # Copie le fichier HTML de la route racine vers index.html
+          if [ -f dist/index.html ]; then
+            echo "index.html already exists"
+          else
+            # Cherche un HTML généré par expo
+            find dist -name "*.html" | head -5
+            cp dist/$(find dist -maxdepth 1 -name "*.html" | head -1 | xargs basename) dist/index.html 2>/dev/null || echo "No HTML found"
+          fi
+          ls -la dist/
       - name: Create update
         run: eas update --auto --platform android --non-interactive
       - name: List dist contents
