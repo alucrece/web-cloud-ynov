@@ -49,15 +49,14 @@ jobs:
         run: eas update --auto --platform android --non-interactive
       - name: List dist contents
         run: ls -la dist/
+      - name: Debug dist structure
+        run: find dist -type f
       - name: Fix index.html for GitHub Pages
         run: |
-          find dist -name "index.html" | head -5
-          cp dist/index/index.html dist/index.html 2>/dev/null || true
-          # Créer un fichier 404.html qui redirige vers index
+          find dist -type f
+          # Copier le bon index.html à la racine
+          find dist -name "index.html" -exec cp {} dist/index.html \; 2>/dev/null || true
           cp dist/index.html dist/404.html
-          sed -i 's|src="/_expo|src="/web-cloud-ynov/_expo|g' dist/index.html
-          sed -i 's|href="/favicon|href="/web-cloud-ynov/favicon|g' dist/index.html
-          cat dist/index.html | grep -E "src=|href="
       - name: Copy root index for GitHub Pages
         run: |
           cp dist/index/index.html dist/index.html
