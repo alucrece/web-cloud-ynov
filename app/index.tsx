@@ -2,6 +2,8 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Platform, ToastAndroid, Alert } from 'react-native';
 import { useRouter, Link } from 'expo-router';
 import { signInWithGithub } from '../firebase/auth_github_provider_create';
+import { signInAnonymouslyUser } from '../firebase/auth_anonymous';
+
 
 export default function Index() {
   const router = useRouter();
@@ -18,10 +20,25 @@ export default function Index() {
       })
       .catch((error) => {
         console.log(error.code);
-        // On affiche une alerte plus propre pour l'erreur
         Alert.alert("Login Failed", "GitHub authentication was cancelled or failed.");
       });
   };
+
+  const handleAnonymousLogin = () => {
+    signInAnonymouslyUser()
+      .then(() => {
+        if (Platform.OS === 'android') {
+          ToastAndroid.show("Welcome with GitHub!", ToastAndroid.SHORT);
+        } else {
+          Alert.alert("Success", "Logged in with GitHub");
+        }
+        router.replace('/profil');
+      })
+      .catch((error) => {
+        Alert.alert("Error", "Anonymous login failed.");
+      });
+  };
+
 
   return (
     <View style={styles.container}>
@@ -44,7 +61,13 @@ export default function Index() {
         >
           <Text style={styles.buttonText}>Continue with GitHub</Text>
         </TouchableOpacity>
-
+        <TouchableOpacity 
+          style={[styles.githubButton, { marginTop: 15 }]} 
+          onPress={handleAnonymousLogin}
+          activeOpacity={0.8}
+        >
+          <Text style={styles.buttonText}>Continue as Guest</Text>
+        </TouchableOpacity>
         <TouchableOpacity onPress={() => router.push('/signin')}>
           <Text style={styles.secondaryLink}>Already have an account? Sign In</Text>
         </TouchableOpacity>
