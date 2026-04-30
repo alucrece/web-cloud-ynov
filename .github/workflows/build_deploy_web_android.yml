@@ -31,37 +31,8 @@ jobs:
           token: ${{ secrets.EXPO_TOKEN }}
       - name: Build app
         run: eas build --platform android --non-interactive --no-wait
-      - name: Fix missing index.html
-        run: |
-          ls -la dist/
-          # Copie le fichier HTML de la route racine vers index.html
-          if [ -f dist/index.html ]; then
-            echo "index.html already exists"
-          else
-            # Cherche un HTML généré par expo
-            find dist -name "*.html" | head -5
-            cp dist/$(find dist -maxdepth 1 -name "*.html" | head -1 | xargs basename) dist/index.html 2>/dev/null || echo "No HTML found"
-          fi
-          ls -la dist/
-      - name: Show index.html content
-        run: cat dist/index.html
       - name: Create update
         run: eas update --auto --platform android --non-interactive
-      - name: List dist contents
-        run: ls -la dist/
-      - name: Debug dist structure
-        run: find dist -type f
-      - name: Fix paths for GitHub Pages
-        run: |
-          sed -i 's|src="/_expo|src="/web-cloud-ynov/_expo|g' dist/index.html
-          sed -i 's|href="/favicon|href="/web-cloud-ynov/favicon|g' dist/index.html
-          cp dist/index.html dist/404.html
-          echo "✅ Done"
-          grep -E 'src=|href=' dist/index.html | head -5
-      - name: Copy root index for GitHub Pages
-        run: |
-          cp dist/index/index.html dist/index.html
-          cp dist/index.html dist/404.html
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
