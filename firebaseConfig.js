@@ -1,15 +1,14 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { exp } from "firebase/firestore/pipelines";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAFvhta3Hrigqd4khrY1vNZhpgYF_ZylgY",
-  authDomain: "web-cloud-ynov-ccbdc.firebaseapp.com",
-  projectId: "web-cloud-ynov-ccbdc",
-  storageBucket: "web-cloud-ynov-ccbdc.firebasestorage.app",
-  messagingSenderId: "236983712572",
-  appId: "1:236983712572:web:63f7ecfabfb4d958807c39",
-  measurementId: "G-7K00YMG65H"
+  apiKey: process.env.EXPO_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.EXPO_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.EXPO_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.EXPO_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.EXPO_PUBLIC_FIREBASE_APP_ID,
+  measurementId: process.env.EXPO_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
 export const app = initializeApp(firebaseConfig);
